@@ -15,8 +15,9 @@ const words=["Free delivery over Rs. 2,000","Gold-tone, skin-friendly","Gift-rea
 $("#mq").innerHTML=[...words,...words,...words,...words].map(w=>`<span>${w}</span><i>✦</i>`).join("");
 // shop (cards are in the HTML for SEO; JS only filters + reveals)
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("v");io.unobserve(e.target)}}),{threshold:.12});
-document.querySelectorAll(".card").forEach((c,k)=>{c.style.transitionDelay=(k%3)*90+"ms";io.observe(c)});
-$("#tabs").onclick=e=>{const c=e.target.dataset.c;if(!c)return;document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("on",b===e.target));document.querySelectorAll(".card").forEach(k=>{k.hidden=!(c=="All"||k.dataset.c==c);if(!k.hidden)k.classList.add("v")})};
+document.querySelectorAll(".card,.rv").forEach((c,k)=>{c.style.transitionDelay=(k%3)*90+"ms";io.observe(c)});
+function setCat(c){document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("on",b.dataset.c===c));document.querySelectorAll(".card").forEach(k=>{k.hidden=!(c=="All"||k.dataset.c==c);if(!k.hidden)k.classList.add("v")})}
+$("#tabs").onclick=e=>{const c=e.target.dataset.c;if(c)setCat(c)};
 // lookbook
 $("#rail").innerHTML=[4,1,12,8,5,9,3,10,6].map(k=>`<img src="${IMG[k]}" alt="Pretty N Picked gold jewellery styled with rose petals and silk" width="320" height="427" loading="lazy">`).join("");
 // cart
@@ -25,17 +26,3 @@ function draw(){const ids=Object.keys(cart);let t=0,n=0;
 $("#items").innerHTML=ids.length?ids.map(id=>{const x=P.find(p=>p.id==id),q=cart[id];t+=x.p*q;n+=q;return `<div class="it"><img src="${IMG[x.i[0]]}" alt="${x.n}"><div><b>${x.n}</b>${q} × ${fmt(x.p)}</div><button data-rm="${id}" aria-label="Remove">✕</button></div>`}).join(""):`<p class="empty">Your bag is empty.<br>Pick something pretty.</p>`;
 $("#tot").textContent=fmt(t);$("#cnt").textContent=n}
 function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("o");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("o"),2200)}
-document.addEventListener("click",e=>{const a=e.target.closest(".add"),r=e.target.closest("[data-rm]");
-if(a){const id=a.dataset.id;cart[id]=(cart[id]||0)+1;draw();toast("Added to your bag ✦")}
-if(r){delete cart[r.dataset.rm];draw()}});
-$("#bag").onclick=()=>$("#dr").classList.add("o");$("#x").onclick=()=>$("#dr").classList.remove("o");
-$("#co").onclick=()=>toast(Object.keys(cart).length?"Checkout is coming soon":"Add a piece first");
-$("#f").onsubmit=e=>{e.preventDefault();e.target.reset();toast("Welcome to the club ✦")};
-draw();
-// side menu (mobile)
-const menu=$("#menu"),ov=$("#ov"),bur=$("#burger");
-function mtoggle(o){menu.classList.toggle("o",o);ov.classList.toggle("o",o);bur.setAttribute("aria-expanded",o);document.body.style.overflow=o?"hidden":""}
-bur.onclick=()=>mtoggle(true);$("#mclose").onclick=ov.onclick=()=>mtoggle(false);
-menu.addEventListener("click",e=>{if(e.target.closest("a"))mtoggle(false)});
-addEventListener("keydown",e=>{if(e.key==="Escape"){mtoggle(false);$("#dr").classList.remove("o")}});
-addEventListener("resize",()=>{if(innerWidth>900)mtoggle(false)});
