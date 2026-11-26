@@ -1,17 +1,17 @@
 const IMG={1:"assets/img1.jpg",2:"assets/img2.jpg",3:"assets/img3.jpg",4:"assets/img4.jpg",5:"assets/img5.jpg",6:"assets/img6.jpg",7:"assets/img7.jpg",8:"assets/img8.jpg",9:"assets/img9.jpg",10:"assets/img10.jpg",11:"assets/img11.jpg",12:"assets/img12.jpg"};
 const P=[
-{id:1,n:"Clover Pearl Necklace",c:"Necklaces",d:"Mother-of-pearl clover, beaded gold edge",p:3800,i:[1,2],t:"Bestseller"},
-{id:2,n:"Dewdrop Studs",c:"Earrings",d:"Bold polished gold teardrops",p:2400,i:[3,4],t:"New"},
-{id:3,n:"Clover Five Bracelet",c:"Bracelets",d:"Five pearl clovers on a fine chain",p:4500,i:[5,6]},
-{id:4,n:"Little Ribbon Necklace",c:"Necklaces",d:"Dainty bow on a box chain",p:2900,i:[7,8],t:"Gift pick"},
-{id:5,n:"Petal Rectangle Watch",c:"Watches",d:"Pearl dial, crystal bezel, gold link strap",p:8900,i:[9,10]},
-{id:6,n:"Crescent Gold Hoops",c:"Earrings",d:"Chunky, light and easy to wear",p:2200,i:[11,12]}];
+{id:1,n:"Clover Pearl Necklace",c:"Necklaces",d:"Mother-of-pearl clover, beaded gold edge",p:499,i:[1,2],t:"Bestseller"},
+{id:2,n:"Dewdrop Studs",c:"Earrings",d:"Bold polished gold teardrops",p:999,i:[3,4],t:"New"},
+{id:3,n:"Clover Five Bracelet",c:"Bracelets",d:"Five pearl clovers on a fine chain",p:1499,i:[5,6]},
+{id:4,n:"Little Ribbon Necklace",c:"Necklaces",d:"Dainty bow on a box chain",p:499,i:[7,8],t:"Gift pick"},
+{id:5,n:"Petal Rectangle Watch",c:"Watches",d:"Pearl dial, crystal bezel, gold link strap",p:1999,i:[9,10]},
+{id:6,n:"Crescent Gold Hoops",c:"Earrings",d:"Chunky, light and easy to wear",p:999,i:[11,12]}];
 const fmt=n=>"Rs. "+n.toLocaleString("en-US");
 const $=s=>document.querySelector(s);
 // petals
 for(let k=0;k<(innerWidth<700?7:14);k++){const s=document.createElement("i");s.className="petal";s.style.cssText=`left:${Math.random()*100}%;--dx:${(Math.random()*160-80)}px;--r:${360+Math.random()*540}deg;animation-duration:${9+Math.random()*9}s;animation-delay:${-Math.random()*14}s;transform:scale(${.6+Math.random()*.9})`;$(".hero").appendChild(s)}
 // marquee
-const words=["Free delivery over Rs. 5,000","Gold-tone, skin-friendly","Gift-ready packaging","Cash on delivery"];
+const words=["Free delivery over Rs. 2,000","Gold-tone, skin-friendly","Gift-ready packaging","Cash on delivery"];
 $("#mq").innerHTML=[...words,...words,...words,...words].map(w=>`<span>${w}</span><i>✦</i>`).join("");
 // shop (cards are in the HTML for SEO; JS only filters + reveals)
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("v");io.unobserve(e.target)}}),{threshold:.12});
