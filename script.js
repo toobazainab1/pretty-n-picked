@@ -26,3 +26,17 @@ function draw(){const ids=Object.keys(cart);let t=0,n=0;
 $("#items").innerHTML=ids.length?ids.map(id=>{const x=P.find(p=>p.id==id),q=cart[id];t+=x.p*q;n+=q;return `<div class="it"><img src="${IMG[x.i[0]]}" alt="${x.n}"><div><b>${x.n}</b>${q} × ${fmt(x.p)}</div><button data-rm="${id}" aria-label="Remove">✕</button></div>`}).join(""):`<p class="empty">Your bag is empty.<br>Pick something pretty.</p>`;
 $("#tot").textContent=fmt(t);$("#cnt").textContent=n}
 function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("o");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("o"),2200)}
+document.addEventListener("click",e=>{const a=e.target.closest(".add"),r=e.target.closest("[data-rm]");
+if(a){const id=a.dataset.id;cart[id]=(cart[id]||0)+1;draw();toast("Added to your bag ✦")}
+if(r){delete cart[r.dataset.rm];draw()}});
+$("#bag").onclick=()=>$("#dr").classList.add("o");$("#x").onclick=()=>$("#dr").classList.remove("o");
+$("#co").onclick=()=>toast(Object.keys(cart).length?"Checkout is coming soon":"Add a piece first");
+$("#f").onsubmit=e=>{e.preventDefault();e.target.reset();toast("Welcome to the club ✦")};
+draw();
+// side menu (mobile)
+const menu=$("#menu"),ov=$("#ov"),bur=$("#burger");
+function mtoggle(o){menu.classList.toggle("o",o);ov.classList.toggle("o",o);bur.setAttribute("aria-expanded",o);document.body.style.overflow=o?"hidden":""}
+bur.onclick=()=>mtoggle(true);$("#mclose").onclick=ov.onclick=()=>mtoggle(false);
+menu.addEventListener("click",e=>{if(e.target.closest("a"))mtoggle(false);const b=e.target.closest("[data-cat]");if(b){setCat(b.dataset.cat);mtoggle(false);$("#shop").scrollIntoView({behavior:"smooth"})}});
+addEventListener("keydown",e=>{if(e.key==="Escape"){mtoggle(false);$("#dr").classList.remove("o")}});
+addEventListener("resize",()=>{if(innerWidth>900)mtoggle(false)});
