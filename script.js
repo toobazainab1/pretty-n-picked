@@ -9,7 +9,7 @@ const P=[
 const fmt=n=>"Rs. "+n.toLocaleString("en-US");
 const $=s=>document.querySelector(s);
 // petals
-for(let k=0;k<14;k++){const s=document.createElement("i");s.className="petal";s.style.cssText=`left:${Math.random()*100}%;--dx:${(Math.random()*160-80)}px;--r:${360+Math.random()*540}deg;animation-duration:${9+Math.random()*9}s;animation-delay:${-Math.random()*14}s;transform:scale(${.6+Math.random()*.9})`;$(".hero").appendChild(s)}
+for(let k=0;k<(innerWidth<700?7:14);k++){const s=document.createElement("i");s.className="petal";s.style.cssText=`left:${Math.random()*100}%;--dx:${(Math.random()*160-80)}px;--r:${360+Math.random()*540}deg;animation-duration:${9+Math.random()*9}s;animation-delay:${-Math.random()*14}s;transform:scale(${.6+Math.random()*.9})`;$(".hero").appendChild(s)}
 // marquee
 const words=["Free delivery over Rs. 5,000","Gold-tone, skin-friendly","Gift-ready packaging","Cash on delivery"];
 $("#mq").innerHTML=[...words,...words,...words,...words].map(w=>`<span>${w}</span><i>✦</i>`).join("");
@@ -32,3 +32,10 @@ $("#bag").onclick=()=>$("#dr").classList.add("o");$("#x").onclick=()=>$("#dr").c
 $("#co").onclick=()=>toast(Object.keys(cart).length?"Checkout is coming soon":"Add a piece first");
 $("#f").onsubmit=e=>{e.preventDefault();e.target.reset();toast("Welcome to the club ✦")};
 draw();
+// side menu (mobile)
+const menu=$("#menu"),ov=$("#ov"),bur=$("#burger");
+function mtoggle(o){menu.classList.toggle("o",o);ov.classList.toggle("o",o);bur.setAttribute("aria-expanded",o);document.body.style.overflow=o?"hidden":""}
+bur.onclick=()=>mtoggle(true);$("#mclose").onclick=ov.onclick=()=>mtoggle(false);
+menu.addEventListener("click",e=>{if(e.target.closest("a"))mtoggle(false)});
+addEventListener("keydown",e=>{if(e.key==="Escape"){mtoggle(false);$("#dr").classList.remove("o")}});
+addEventListener("resize",()=>{if(innerWidth>900)mtoggle(false)});
