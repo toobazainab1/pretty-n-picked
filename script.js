@@ -11,7 +11,7 @@ const $=s=>document.querySelector(s);
 // petals
 for(let k=0;k<(innerWidth<700?7:14);k++){const s=document.createElement("i");s.className="petal";s.style.cssText=`left:${Math.random()*100}%;--dx:${(Math.random()*160-80)}px;--r:${360+Math.random()*540}deg;animation-duration:${9+Math.random()*9}s;animation-delay:${-Math.random()*14}s;transform:scale(${.6+Math.random()*.9})`;$(".hero").appendChild(s)}
 // marquee
-const words=["Free delivery over Rs. 2,000","Gold-tone, skin-friendly","Gift-ready packaging","Cash on delivery"];
+const words=["Free delivery over Rs. 2,000","Stainless steel, gold-tone finish","Gift-ready packaging","Cash on delivery"];
 $("#mq").innerHTML=[...words,...words,...words,...words].map(w=>`<span>${w}</span><i>✦</i>`).join("");
 // shop (cards are in the HTML for SEO; JS only filters + reveals)
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("v");io.unobserve(e.target)}}),{threshold:.12});
@@ -19,7 +19,7 @@ document.querySelectorAll(".card,.rv").forEach((c,k)=>{c.style.transitionDelay=(
 function setCat(c){document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("on",b.dataset.c===c));document.querySelectorAll(".card").forEach(k=>{k.hidden=!(c=="All"||k.dataset.c==c);if(!k.hidden)k.classList.add("v")})}
 $("#tabs").onclick=e=>{const c=e.target.dataset.c;if(c)setCat(c)};
 // lookbook
-$("#rail").innerHTML=[4,1,12,8,5,9,3,10,6].map(k=>`<img src="${IMG[k]}" alt="Pretty N Picked gold jewellery styled with rose petals and silk" width="320" height="427" loading="lazy">`).join("");
+$("#rail").innerHTML=[4,1,12,8,5,9,3,10,6].map(k=>`<img src="${IMG[k]}" alt="Pretty N Picked stainless steel jewellery styled with rose petals and silk" width="320" height="427" loading="lazy">`).join("");
 // cart
 let cart={};
 function draw(){const ids=Object.keys(cart);let t=0,n=0;
